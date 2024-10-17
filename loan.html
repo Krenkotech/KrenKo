@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlock Your Financial Freedom</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+        header {
+            background: #35424a;
+            color: #ffffff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #e8491d 3px solid;
+        }
+        header h1 {
+            margin: 0;
+            text-align: center;
+        }
+        .main-content {
+            padding: 20px;
+            background: #ffffff;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .feature {
+            margin-bottom: 20px;
+        }
+        .feature h2 {
+            color: #35424a;
+        }
+        #contactForm {
+            background: #f4f4f4;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        input[type="tel"], button {
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        button {
+            background: #e8491d;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #35424a;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Unlock Your Financial Freedom</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <form id="contactForm">
+            <h2>Contact Us</h2>
+            <input type="tel" id="phoneNumber" placeholder="Enter your phone number" required>
+            <button type="submit">Submit</button>
+        </form>
+        <div class="main-content">
+            <div class="feature">
+                <h2>💸 Get Loans Up to ₹10,00,000</h2>
+                <p>Achieve your financial goals easily—whether it's a dream vacation, home renovation, or managing expenses.</p>
+            </div>
+            <div class="feature">
+                <h2>🚀 Hassle-Free Application Process</h2>
+                <p>Say goodbye to long paperwork! Enjoy a smooth, 100% digital process for quick approvals.</p>
+            </div>
+            <div class="feature">
+                <h2>📅 Flexible EMIs, Tailored to You</h2>
+                <p>Choose repayment plans that fit your budget effortlessly, with no surprises along the way.</p>
+            </div>
+            <div class="feature">
+                <h2>❌ Zero Hidden Charges</h2>
+                <p>We believe in complete transparency—no nasty surprises, just clear terms and conditions.</p>
+            </div>
+            <div class="feature">
+                <h2>Why Choose Us?</h2>
+                <ul>
+                    <li>40+ RBI-Registered Banks & NBFCs: Wide network of trusted lending partners.</li>
+                    <li>20+ Lakh Happy Customers: Join the growing community we've proudly supported.</li>
+                </ul>
+            </div>
+        </div>
+
+       
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <h2>Get in Touch!</h2>
+        <p>Enter your phone number and we'll contact you shortly.</p>
+        <input type="tel" id="popupPhoneNumber" placeholder="Enter your phone number" required>
+        <button onclick="submitPopupForm()">Submit</button>
+    </div>
+
+    <script>
+        // Show popup after 3 seconds
+        setTimeout(() => {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('popup').style.display = 'block';
+        }, 3000);
+
+        // Handle form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitForm('phoneNumber');
+        });
+
+        function submitPopupForm() {
+            submitForm('popupPhoneNumber');
+            closePopup();
+        }
+
+        function submitForm(inputId) {
+            const phoneNumber = document.getElementById(inputId).value;
+            // Here you would typically send the phone number to your server
+            // For this example, we'll just log it to the console
+            console.log('Submitted phone number:', phoneNumber);
+            
+            alert('Thank you! We will contact you soon.');
+            
+            // Here's where you would call the function to push to Google Sheets
+            pushToGoogleSheets(phoneNumber);
+        }
+
+        function closePopup() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        // Function to push data to Google Sheets (placeholder)
+        function pushToGoogleSheets(phoneNumber) {
+            // This is a placeholder function. You'll need to implement the actual API call.
+            var url = 'https://script.google.com/macros/s/AKfycbwm93f8_xMiRq6DhLDy7Jn3Jn9-X9pjM9ypv6QK_CMF26B5euWurSyxVXNaZ6vqB6ez/exec';
+            fetch(url, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'phoneNumber=' + encodeURIComponent(phoneNumber)
+            })
+            .then(response => console.log('Success'))
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
