@@ -140,6 +140,15 @@
             document.getElementById('popup').style.display = 'block';
         }, 3000);
 
+        // Remove popup on overly click
+        document.getElementById('overlay').addEventListener('click', () =>{
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+            setTimeout(() => {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('popup').style.display = 'block';
+        }, 10000);
+        })
         // Handle form submission
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
